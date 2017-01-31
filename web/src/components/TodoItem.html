@@ -1,6 +1,6 @@
-<li class="todo-list-item" ng-repeat="item in items track by $index">
-    <input title="is done" class="is-done" type="checkbox" >
-    <span  class="content" >吃饭／睡觉</span>
+<li class="todo-list-item">
+    <input title="is done" class="is-done" type="checkbox" checked={{isDone}} on:click='toggleDone()' ref:doneCheckbox>
+    <span  class="content {{isDone ? 'done' : ''}}" >{{content}}</span>
     <button class="remove" >&times;</button>
 </li>
 
@@ -54,3 +54,21 @@
 	    padding: 12px 15px 12px 54px;
 	}
 </style>
+
+<script>
+	export default{
+		data(){
+			return {
+				isDone:false,
+				content:'哈喽大家好我是JJ林俊杰。今天给大家带来一首不是自己的歌，叫做瓜牛。希望大家会喜欢。'
+			}
+		},
+		methods:{
+			toggleDone(){
+				const newStatus=this.refs.doneCheckbox.checked
+				this.set({isDone:newStatus})
+			}
+		}
+		
+	}
+</script>

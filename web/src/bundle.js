@@ -28,6 +28,14 @@ function createComment () {
 	return document.createComment( '' );
 }
 
+function addEventListener ( node, event, handler ) {
+	node.addEventListener ( event, handler, false );
+}
+
+function removeEventListener ( node, event, handler ) {
+	node.removeEventListener ( event, handler, false );
+}
+
 function setAttribute ( node, attribute, value ) {
 	node.setAttribute ( attribute, value );
 }
@@ -262,10 +270,28 @@ TodoInput.prototype.teardown = function teardown ( detach ) {
 	this._state = {};
 };
 
+var template$3 = (function () {
+	return {
+		data(){
+			return {
+				isDone:false,
+				content:'哈喽大家好我是JJ林俊杰。今天给大家带来一首不是自己的歌，叫做瓜牛。希望大家会喜欢。'
+			}
+		},
+		methods:{
+			toggleDone(){
+				const newStatus=this.refs.doneCheckbox.checked;
+				this.set({isDone:newStatus});
+			}
+		}
+		
+	}
+}());
+
 let addedCss$5 = false;
 function addCss$5 () {
 	var style = createElement( 'style' );
-	style.textContent = "\n\t.todo-list-item[svelte-2919854985], [svelte-2919854985] .todo-list-item {\n\t    display: flex;\n\t    flex-direction: row;\n\t    align-items: center;\n\t    border: 1px solid rgba(0, 0, 0, 0.12);\n\t    border-top: none;\n\t    padding: 12px 15px;\n\t    background-color: white;\n\t    transition: 0.1s ease-in all;\n\t    cursor: default;\n\t}\n\n\t.todo-list-item[svelte-2919854985]:hover, [svelte-2919854985] .todo-list-item:hover {\n\t    background-color: #f8f8f8;\n\t}\n\n\t.todo-list-item  .is-done[svelte-2919854985], .todo-list-item  [svelte-2919854985] .is-done, .todo-list-item[svelte-2919854985]  .is-done, [svelte-2919854985] .todo-list-item  .is-done {\n\t    cursor: pointer;\n\t}\n\n\t.todo-list-item  .content[svelte-2919854985], .todo-list-item  [svelte-2919854985] .content, .todo-list-item[svelte-2919854985]  .content, [svelte-2919854985] .todo-list-item  .content {\n\t    flex: 1;\n\t    padding: 0 15px;\n\t    line-height: 28px;\n\t}\n\n\t.todo-list-item  .content.done[svelte-2919854985], .todo-list-item  [svelte-2919854985] .content.done, .todo-list-item[svelte-2919854985]  .content.done, [svelte-2919854985] .todo-list-item  .content.done {\n\t    text-decoration: line-through;\n\t    font-style: italic;\n\t    color: rgba(0, 0, 0, 0.25);\n\t}\n\n\t.todo-list-item  .remove[svelte-2919854985], .todo-list-item  [svelte-2919854985] .remove, .todo-list-item[svelte-2919854985]  .remove, [svelte-2919854985] .todo-list-item  .remove {\n\t    border: none;\n\t    background-color: transparent;\n\t    font-size: 20px;\n\t    color: rgba(0, 0, 0, 0.54);\n\t    cursor: pointer;\n\t}\n\n\t.todo-list-item  .remove[svelte-2919854985]:focus, .todo-list-item  [svelte-2919854985] .remove:focus, .todo-list-item[svelte-2919854985]  .remove:focus, [svelte-2919854985] .todo-list-item  .remove:focus {\n\t    outline: none;\n\t}\n\tinput[svelte-2919854985], [svelte-2919854985] input {\n\t    border: 1px solid rgba(0, 0, 0, 0.12);\n\t    font-size: 20px;\n\t    padding: 12px 15px 12px 54px;\n\t}\n";
+	style.textContent = "\n\t.todo-list-item[svelte-2134041059], [svelte-2134041059] .todo-list-item {\n\t    display: flex;\n\t    flex-direction: row;\n\t    align-items: center;\n\t    border: 1px solid rgba(0, 0, 0, 0.12);\n\t    border-top: none;\n\t    padding: 12px 15px;\n\t    background-color: white;\n\t    transition: 0.1s ease-in all;\n\t    cursor: default;\n\t}\n\n\t.todo-list-item[svelte-2134041059]:hover, [svelte-2134041059] .todo-list-item:hover {\n\t    background-color: #f8f8f8;\n\t}\n\n\t.todo-list-item  .is-done[svelte-2134041059], .todo-list-item  [svelte-2134041059] .is-done, .todo-list-item[svelte-2134041059]  .is-done, [svelte-2134041059] .todo-list-item  .is-done {\n\t    cursor: pointer;\n\t}\n\n\t.todo-list-item  .content[svelte-2134041059], .todo-list-item  [svelte-2134041059] .content, .todo-list-item[svelte-2134041059]  .content, [svelte-2134041059] .todo-list-item  .content {\n\t    flex: 1;\n\t    padding: 0 15px;\n\t    line-height: 28px;\n\t}\n\n\t.todo-list-item  .content.done[svelte-2134041059], .todo-list-item  [svelte-2134041059] .content.done, .todo-list-item[svelte-2134041059]  .content.done, [svelte-2134041059] .todo-list-item  .content.done {\n\t    text-decoration: line-through;\n\t    font-style: italic;\n\t    color: rgba(0, 0, 0, 0.25);\n\t}\n\n\t.todo-list-item  .remove[svelte-2134041059], .todo-list-item  [svelte-2134041059] .remove, .todo-list-item[svelte-2134041059]  .remove, [svelte-2134041059] .todo-list-item  .remove {\n\t    border: none;\n\t    background-color: transparent;\n\t    font-size: 20px;\n\t    color: rgba(0, 0, 0, 0.54);\n\t    cursor: pointer;\n\t}\n\n\t.todo-list-item  .remove[svelte-2134041059]:focus, .todo-list-item  [svelte-2134041059] .remove:focus, .todo-list-item[svelte-2134041059]  .remove:focus, [svelte-2134041059] .todo-list-item  .remove:focus {\n\t    outline: none;\n\t}\n\tinput[svelte-2134041059], [svelte-2134041059] input {\n\t    border: 1px solid rgba(0, 0, 0, 0.12);\n\t    font-size: 20px;\n\t    padding: 12px 15px 12px 54px;\n\t}\n";
 	appendNode( style, document.head );
 
 	addedCss$5 = true;
@@ -273,29 +299,38 @@ function addCss$5 () {
 
 function renderMainFragment$5 ( root, component ) {
 	var li = createElement( 'li' );
-	setAttribute( li, 'svelte-2919854985', '' );
+	setAttribute( li, 'svelte-2134041059', '' );
 	li.className = "todo-list-item";
-	setAttribute( li, 'ng-repeat', "item in items track by $index" );
 	
 	var input = createElement( 'input' );
-	setAttribute( input, 'svelte-2919854985', '' );
+	setAttribute( input, 'svelte-2134041059', '' );
 	input.title = "is done";
 	input.className = "is-done";
 	input.type = "checkbox";
+	input.checked = root.isDone;
+	
+	function clickHandler ( event ) {
+		component.toggleDone();
+	}
+	
+	addEventListener( input, 'click', clickHandler );
+	
+	component.refs.doneCheckbox = input;
 	
 	appendNode( input, li );
 	appendNode( createText( "\n    " ), li );
 	
 	var span = createElement( 'span' );
-	setAttribute( span, 'svelte-2919854985', '' );
-	span.className = "content";
+	setAttribute( span, 'svelte-2134041059', '' );
+	span.className = "content " + ( root.isDone ? 'done' : '' );
 	
 	appendNode( span, li );
-	appendNode( createText( "吃饭／睡觉" ), span );
+	var text1 = createText( root.content );
+	appendNode( text1, span );
 	appendNode( createText( "\n    " ), li );
 	
 	var button = createElement( 'button' );
-	setAttribute( button, 'svelte-2919854985', '' );
+	setAttribute( button, 'svelte-2134041059', '' );
 	button.className = "remove";
 	
 	appendNode( button, li );
@@ -306,9 +341,18 @@ function renderMainFragment$5 ( root, component ) {
 			insertNode( li, target, anchor );
 		},
 		
-		update: noop,
+		update: function ( changed, root ) {
+			input.checked = root.isDone;
+			
+			span.className = "content " + ( root.isDone ? 'done' : '' );
+			
+			text1.data = root.content;
+		},
 		
 		teardown: function ( detach ) {
+			removeEventListener( input, 'click', clickHandler );
+			if ( component.refs.doneCheckbox === input ) component.refs.doneCheckbox = null;
+			
 			if ( detach ) {
 				detachNode( li );
 			}
@@ -319,7 +363,8 @@ function renderMainFragment$5 ( root, component ) {
 function TodoItem ( options ) {
 	options = options || {};
 	
-	this._state = options.data || {};
+	this.refs = {};
+	this._state = Object.assign( template$3.data(), options.data );
 
 	this._observers = {
 		pre: Object.create( null ),
@@ -336,6 +381,8 @@ function TodoItem ( options ) {
 	this._fragment = renderMainFragment$5( this._state, this );
 	if ( options.target ) this._fragment.mount( options.target, null );
 }
+
+TodoItem.prototype = template$3.methods;
 
 TodoItem.prototype.get = get;
 TodoItem.prototype.fire = fire;
@@ -367,7 +414,17 @@ var template$2 = (function () {
 		},
 		data(){
 			return {
-				todoDatas:[0,1,2,3,4]
+				todoDatas:[
+				{
+					isDone:true,
+					content:'吃饭'
+				},{
+					content:'睡觉'
+				},{
+					content:'表玛丽'
+				},
+
+				]
 			}
 		}
 	}
@@ -376,7 +433,7 @@ var template$2 = (function () {
 let addedCss$4 = false;
 function addCss$4 () {
 	var style = createElement( 'style' );
-	style.textContent = "\n\t.todo-list[svelte-2967471599], [svelte-2967471599] .todo-list {\n\t    display: flex;\n\t    flex-direction: column;\n\t    align-items: stretch;\n\t    padding: 0;\n\t    margin: 0;\n\t}\n";
+	style.textContent = "\n\t.todo-list[svelte-2287322879], [svelte-2287322879] .todo-list {\n\t    display: flex;\n\t    flex-direction: column;\n\t    align-items: stretch;\n\t    padding: 0;\n\t    margin: 0;\n\t}\n";
 	appendNode( style, document.head );
 
 	addedCss$4 = true;
@@ -384,7 +441,7 @@ function addCss$4 () {
 
 function renderMainFragment$4 ( root, component ) {
 	var ul = createElement( 'ul' );
-	setAttribute( ul, 'svelte-2967471599', '' );
+	setAttribute( ul, 'svelte-2287322879', '' );
 	ul.className = "todo-list";
 	
 	var eachBlock_anchor = createComment();
@@ -429,10 +486,16 @@ function renderMainFragment$4 ( root, component ) {
 	};
 }
 
-function renderEachBlock ( root, eachBlock_value, data, data__index, component ) {
+function renderEachBlock ( root, eachBlock_value, data, index, component ) {
+	var todoItem_initialData = {
+		isDone: data.isDone,
+		content: data.content,
+		index: index
+	};
 	var todoItem = new template$2.components.TodoItem({
 		target: null,
-		_root: component._root || component
+		_root: component._root || component,
+		data: todoItem_initialData
 	});
 
 	return {
@@ -440,7 +503,15 @@ function renderEachBlock ( root, eachBlock_value, data, data__index, component )
 			todoItem._fragment.mount( target, anchor );
 		},
 		
-		update: noop,
+		update: function ( changed, root, eachBlock_value, data, index ) {
+			var todoItem_changes = {};
+			
+			if ( 'todoDatas' in changed ) todoItem_changes.isDone = data.isDone;
+			if ( 'todoDatas' in changed ) todoItem_changes.content = data.content;
+			todoItem_changes.index = index;
+			
+			if ( Object.keys( todoItem_changes ).length ) todoItem.set( todoItem_changes );
+		},
 		
 		teardown: function ( detach ) {
 			todoItem.teardown( detach );

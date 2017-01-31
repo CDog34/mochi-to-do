@@ -1,6 +1,6 @@
 <ul class="todo-list">
-		{{#each todoDatas as data}}
-	        <TodoItem/>
+		{{#each todoDatas as data, index}}
+	        <TodoItem isDone={{data.isDone}} content={{data.content}} index={{index}}/>
 		{{/each}}
 </ul>
 
@@ -23,7 +23,17 @@
 		},
 		data(){
 			return {
-				todoDatas:[0,1,2,3,4]
+				todoDatas:[
+				{
+					isDone:true,
+					content:'吃饭'
+				},{
+					content:'睡觉'
+				},{
+					content:'表玛丽'
+				},
+
+				]
 			}
 		}
 	}
