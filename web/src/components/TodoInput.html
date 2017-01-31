@@ -1,4 +1,4 @@
-<input type="text" placeholder="请输入...">
+<input type="text" placeholder="请输入..." bind:value='content' on:keydown='submit(event.keyCode)'>
 
 <style>
 	input {
@@ -12,3 +12,32 @@
       box-shadow: 0 0 20px rgba(0, 0, 0, 0.08);
   }
 </style>
+
+<script>
+	import idGenerator from 'uuid/v4';
+	import {LocalStorageService as storage} from '../services/LocalStorageService';
+	
+	export default {
+		data(){
+			return {
+				content:''
+			}
+		},
+		methods:{
+			submit(keyCode){
+				const content=this.get('content');
+				if ( keyCode !== 13 || content === '') return null;
+				const data = JSON.parse(storage.get('todoDatas'));
+				const newItem={
+					id:idGenerator(),
+					content:content,
+					isDone:false
+				};
+				data.push(newItem);
+				storage.set('todoDatas',JSON.stringify(data));
+				this.set({content:''});
+				this.fire('add');
+			}
+		}
+	}
+</script>

@@ -1,7 +1,7 @@
 <li class="todo-list-item">
-    <input title="is done" class="is-done" type="checkbox" checked={{isDone}} on:click='toggleDone()' ref:doneCheckbox>
+    <input title="is done" class="is-done" type="checkbox" checked={{isDone}} on:click='toggleDone(id)' ref:doneCheckbox>
     <span  class="content {{isDone ? 'done' : ''}}" >{{content}}</span>
-    <button class="remove" >&times;</button>
+    <button class="remove" on:click='del(id)' >&times;</button>
 </li>
 
 <style>
@@ -56,18 +56,42 @@
 </style>
 
 <script>
+	import {LocalStorageService as storage} from '../services/LocalStorageService';
+	import {findIndex,remove} from 'lodash';
+
+	let storeTodeStatus=(id,status)=>{
+		const data=JSON.parse(storage.get('todoDatas'));
+		data[findIndex(data,item=>item.id===id)].isDone=status;
+		storage.set('todoDatas',JSON.stringify(data));
+	}
+
+	let deleteTodo= id =>{
+		const data=JSON.parse(storage.get('todoDatas'));
+		remove(data,item=>item.id===id)
+		storage.set('todoDatas',JSON.stringify(data));
+	}
+
 	export default{
 		data(){
 			return {
+				id:null,
 				isDone:false,
 				content:'哈喽大家好我是JJ林俊杰。今天给大家带来一首不是自己的歌，叫做瓜牛。希望大家会喜欢。'
 			}
 		},
 		methods:{
-			toggleDone(){
+			toggleDone(id){
+				if (!id) return null;
 				const newStatus=this.refs.doneCheckbox.checked
+				storeTodeStatus(id,newStatus);
 				this.set({isDone:newStatus})
+			},
+			del(id){
+				deleteTodo(id);
+				this.fire('del');
+
 			}
+
 		}
 		
 	}

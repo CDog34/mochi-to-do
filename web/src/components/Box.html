@@ -1,6 +1,6 @@
 <section class="box">
-    <TodoInput/>
-    <TodoList/>
+    <TodoInput on:add='refs.list.refresh()'/>
+    <TodoList ref:list/>
 </section>
 
 <style>
