@@ -1,0 +1,12 @@
+{
+  "name": "mochi-to-do",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/CDog34/mochi-to-do/",
+  "author": "CDog",
+  "license": "MIT",
+  "dependencies": {
+    "rollup-plugin-svelte": "^1.6.0",
+    "rollup-watch": "^3.2.2"
+  }
+}

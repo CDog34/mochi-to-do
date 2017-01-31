@@ -1,0 +1,25 @@
+<section class="box">
+    <TodoInput/>
+    <TodoList/>
+</section>
+
+<style>
+  .box {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      box-shadow: 0 0 80px rgba(0, 0, 0, 0.08);
+  }
+</style>
+
+<script>
+  import TodoInput from './TodoInput.html';
+  import TodoList from './TodoList.html';
+
+  export default{
+    components:{
+      TodoInput,
+      TodoList
+    }
+  }
+</script>

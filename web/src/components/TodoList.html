@@ -1,0 +1,30 @@
+<ul class="todo-list">
+		{{#each todoDatas as data}}
+	        <TodoItem/>
+		{{/each}}
+</ul>
+
+<style>
+	.todo-list {
+	    display: flex;
+	    flex-direction: column;
+	    align-items: stretch;
+	    padding: 0;
+	    margin: 0;
+	}
+</style>
+
+<script>
+	import TodoItem from './TodoItem.html';
+
+	export default{
+		components:{
+			TodoItem
+		},
+		data(){
+			return {
+				todoDatas:[0,1,2,3,4]
+			}
+		}
+	}
+</script>
